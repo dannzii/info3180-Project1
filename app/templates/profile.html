@@ -1,51 +1,54 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block main %}
 
-<div id="fullpage">
+<h1 class="pageheading"> Add Profile </h1>
+<hr id="title_sep">
 
-<div id="Profile_card_Top">
-    <div class="topProfileCard_container">
-        <img src={{userdata["profile_url"]}} alt="" class="mypicture"/>
-    </div>
-    <div class="topProfileCard_container" >
-        <span class="fullname"> {{userdata["Fullname"]}} </span>
-    </div>
-    <div class="topProfileCard_container">
-        <span class="username"> @{{userdata["userName"]}} </span>
-    </div>
-    <div class="topProfileCard_container">
-        <span class="location"> {{ userdata["location"]}} </span>
-    </div>
-    <div class="topProfileCard_container">
-        <span class="joinedDate"> {{userdata["dayJoined"]}} </span>
-    </div>
-</div>
-<div id="Profile_card_Bottom">
+{% include 'flash_message.html' %}
 
-    <div class="bottomProfileCard_container">
-        <span class="biography">{{userdata["Biography"] }} </span>
+<form action"{{url_for('profile')}}" method = "POST" entype="multipart/form-data">
+    
+    {{form.csrf_token }}
+    <div class="form_container">
+        {{form.firstname.label}}
+        <br>
+        {{form.firstname}}
     </div>
-    <div class="bottomProfileCard_container">
-     <div class="row">
-        <div class="col">
-                 <span id="posts"> {{ userdata["Posts_made"] }}</span>
-                 <label class="bottom_label" for="posts"> Posts </label>
-        </div>
-         <div class="col">
-                 <span id="following"> {{userdata["Persons_following"] }}</span>
-                 <label class="bottom_label" for="following"> Following </label>
-        </div>
-        <div class="col">
-                <span id="followers"> {{ userdata["Followers"] }} </span>
-                <label class="bottom_label" for="followers"> Followers </label>
-        </div>
+    <div class="form_container">
+        {{ form.lastname.label}}
+        <br>
+        {{ form.lastname}}
+    </div>
+    <div class="form_container">
+        {{ form.gender.label}}
+        <br>
+        {{form.gender}}
+    </div>
+    <div class="form_container">
+        {{form.email.label}}
+        <br>
+        {{form.email}}
+    </div>
+    <div class="form_container">
+         {{form.location.label}}
+         <br>
+         {{form.location}}
+    </div>
+    <div class="form_container">
+          {{form.bibliography.label}}
+          <br>
+          {{form.bibliography}}
      </div>
-    </div>
-         <div class="bottomProfileCard_container">
-             <label id="follow_button"> Follow </label>
-         </div>
+     <div class="form_container">
+         {{form.profilepic.label}}
+         <br>
+         {{form.profilepic}}
      </div>
-</div>
-
+     <br>
+     <button type="submit" name="submit" class="submitbutton">
+         Add Profile
+     </button>
+      
+</form>
 {% endblock %}
