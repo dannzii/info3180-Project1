@@ -3,81 +3,23 @@ body {
     font-family: "Oxygen","Droid Sans", "Helvetica Neue", "Helvetica", "Arial";
 }
 
-.bottom_label{
-    color: gray;
-}
 
-.biography{
-    color: gray;
-}
-
-.topProfileCard_container{
-    color:  #e0e0eb;
-    text-align: center;
-
-}
-
-.bottomProfileCard_container{
-    text-align: center;
-}
-
-.fullname{
-    color: white;
-    text-shadow: 0px 3px 3px black;
-}
-
-.username{
-    color: white;
-    text-shadow: 0px 3px 3px black;
-}
-
-.location{
-    color: white;
-    text-shadow: 0px 3px 3px black;
-}
-
-.joinedDate{
-    color: white;
-    text-shadow: 0px 3px 3px black;
-}
-
-.mypicture{
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    box-shadow: -2px 2px 10px slategrey;
-}
-
-#Profile_card_Top, #Profile_card_Bottom{
-    padding: 15px 30px;
-    border: #ff0066 solid;
-
-}
-
-#Profile_card_Top{
-    border-radius: 30px 30px 0px 0px;
-    background-image: linear-gradient(#00ffbf, #ff0066);
-}
-
-#Profile_card_Bottom{
-    border-radius: 0px 0px 30px 30px;
-}
-
-.row .col{
-    width: 33.33333%;
-}
-
-.bottomProfileCard_container span{
+.block{
     display: block;
 }
 
-#follow_button{
-    border: 2px solid #00ff00;
-    border-radius: 10px;
-    width: 100px;
-    background: #40ff00;
+.form_container{
+    margin-bottom: 1%;
 }
 
-#fullpage{
-    margin: 0% 100px 0% 100px;
+.textbox{
+    border-radius: 5px;
+}
+
+
+.border-style{
+    margin: 0 auto;
+    padding: 5px;
+    width: 45%;
+    background-color: white;
 }

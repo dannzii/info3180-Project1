@@ -6,49 +6,50 @@
 <hr id="title_sep">
 
 {% include 'flash_message.html' %}
-
+<div class="border-style">
 <form action"{{url_for('profile')}}" method = "POST" entype="multipart/form-data">
     
     {{form.csrf_token }}
     <div class="form_container">
-        {{form.firstname.label}}
+        {{form.firstname.label (class="block")}}
         <br>
-        {{form.firstname}}
+        {{form.firstname(class="textbox col-md-8")}}
     </div>
     <div class="form_container">
-        {{ form.lastname.label}}
+        {{ form.lastname.label (class="block")}}
         <br>
-        {{ form.lastname}}
+        {{ form.lastname (class="textbox col-md-8")}}
     </div>
     <div class="form_container">
-        {{ form.gender.label}}
+        {{ form.gender.label (class="block")}}
         <br>
-        {{form.gender}}
+        {{form.gender(class="textbox col-md-8")}}
     </div>
     <div class="form_container">
-        {{form.email.label}}
+        {{form.email.label (class="block")}}
         <br>
-        {{form.email}}
+        {{form.email (placeholder = "eg. example@example.com", class="textbox col-md-8")}}
     </div>
+    <br>
     <div class="form_container">
-         {{form.location.label}}
+         {{form.location.label (class="block")}}
          <br>
-         {{form.location}}
+         {{form.location (placeholder="eg. Kingston, Jamaica", class="textbox col-md-8")}}
     </div>
+    <br>
     <div class="form_container">
-          {{form.bibliography.label}}
+          {{form.bibliography.label (class="block")}}
           <br>
-          {{form.bibliography}}
-     </div>
-     <div class="form_container">
-         {{form.profilepic.label}}
-         <br>
-         {{form.profilepic}}
+          {{form.bibliography(class="textbox col-md-8")}}
      </div>
      <br>
-     <button type="submit" name="submit" class="submitbutton">
-         Add Profile
-     </button>
-      
+     <div class="form_container">
+         {{form.profilepic.label (class="block")}}
+         <br>
+         {{form.profilepic (class="textbox col-md-8")}}
+     </div>
+     <br>
+     <input type="submit" value="Add Profile" class="btn btn-success"/>
+</div>      
 </form>
 {% endblock %}
