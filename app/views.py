@@ -9,7 +9,6 @@ import datetime
 from app import app, db, allowed_uploads
 from flask import render_template, request, redirect, url_for, flash
 from app.models import UserProfile
-from werkzeug.security import check_password_hash
 from app.forms import ProfileForm
 from werkzeug.utils import secure_filename
 
@@ -27,37 +26,44 @@ def about():
     return render_template('about.html')
 
 
-@app.route("/profile",  methods=["GET", "POST"])
+@app.route("/profile", methods=["GET", "POST"])
 def profile():
-    myform = ProfileForm()
-    if request.method == 'POST':
-        if myform.validate_on_submit():
-            F_name = myform.firstname.data
-            L_name = myform.lastname.data
-            Gender = myform.gender.data
-            Email = myform.email.data
-            Location = myform.location.data
-            Bibliography = myform.bibliography.data
-            Created = str(datetime.datetime.now()).split()[0]
-           
-            Profilepic = myform.profilepic.data
-            filename = secure_filename(Profilepic.filename)
-            Profilepic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    newProfileForm = ProfileForm()
+    
+    if request.method == "POST":
+        if newProfileForm.validate_on_submit():
             
+            try:
+                firstname = newProfileForm.firstname.data
+                lastname = newProfileForm.lastname.data
+                gender = newProfileForm.gender.data
+                email = newProfileForm.email.data
+                location = newProfileForm.location.data
+                bio = newProfileForm.bibliography.data
+                created = str(datetime.datetime.now()).split()[0]
+                
+                photo = newProfileForm.profilepic.data
+                photo_name = secure_filename(photo.filename)
+                
+                user = UserProfile(firstname, lastname, gender, email, location, bio, created, photo_name)
+                
+                db.session.add(user)
+                db.session.commit()
+                
+                photo.save(os.path.join(app.config['UPLOAD_FOLDER'],photo_name))
+                
+                flash("Profile Added", "success")
+                return redirect(url_for("profiles"))
             
-            user = UserProfile(F_name, L_name, Gender, Email, Location, Bibliography, Created, Profilepic)
-            
-            db.session.add(user)
-            db.session.commit()
-            
-            
-            
-            flash('Your profile has successfully been created', 'success')
-            return redirect(url_for('home'))
-        else:
-            db.session.rollback()
-            flash("OOOPS Sorry something went wrong, Try again")
-    return render_template('profile.html', form=myform )
+            except Exception as e:
+                db.session.rollback()
+                flash("Internal Error", "danger")
+                return render_template("profile.html", form = newProfileForm)
+        
+        errors = form_errors(newProfileForm)
+        flash(''.join(error+" " for error in errors), "danger")
+    return render_template("profile.html", form = newProfileForm)
+
 
 @app.route("/profiles")
 def profiles():
@@ -67,7 +73,7 @@ def profiles():
     for user in UserProfile:
         profiles.append({"pro_pic": user.photo, "f_name":user.firstname, "l_name": user.lastname, "gender": user.gender, "location":user.location, "id":user.id})
     
-    return render_template("view_profiles.html", profiles = profiles)
+    return render_template("view-created-profile.html", profiles = profiles)
 
 def get_uploaded_images():
     uploads = []
@@ -77,6 +83,14 @@ def get_uploaded_images():
                 uploads.append(file)
 
     return uploads
+    
+def form_errors(form):
+    error_list =[]
+    for field, errors in form.errors.items():
+        for error in errors:
+            error_list.append(field+": "+error)
+            
+    return error_list
 
 @app.route('/<file_name>.txt')
 def send_text_file(file_name):

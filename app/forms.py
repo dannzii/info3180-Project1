@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SelectField, PasswordField
 from wtforms.validators import DataRequired, Email, InputRequired
 from flask_wtf.file import FileField, FileRequired, FileAllowed
+from . import allowed_uploads
 
 
 class ProfileForm(FlaskForm):
@@ -13,6 +14,6 @@ class ProfileForm(FlaskForm):
     bibliography = TextAreaField('Bibliography', validators=[DataRequired()])
     profilepic = FileField('Profile Picture', validators=[
         FileRequired(),
-        FileAllowed(['jpg', 'jpeg', 'png', 'Images Only!'])
+        FileAllowed(allowed_uploads, ''.join( item+" " for item in allowed_uploads)+"only")
     ])
     

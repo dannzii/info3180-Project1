@@ -1,5 +1,4 @@
 from . import db
-from werkzeug.security import generate_password_hash
 
 
 class UserProfile(db.Model):
@@ -15,7 +14,7 @@ class UserProfile(db.Model):
     gender = db.Column(db.String(10))
     email = db.Column(db.String(80))
     location = db.Column(db.String(80))
-    bio = db.Column(db.Text(300))
+    bio = db.Column(db.String(600))
     created_on = db.Column(db.String(12))
     photo = db.Column(db.String(80))
     

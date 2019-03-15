@@ -12,41 +12,34 @@
     {{form.csrf_token }}
     <div class="form_container">
         {{form.firstname.label (class="block")}}
-        <br>
         {{form.firstname(class="textbox col-md-8")}}
     </div>
     <div class="form_container">
         {{ form.lastname.label (class="block")}}
-        <br>
         {{ form.lastname (class="textbox col-md-8")}}
     </div>
     <div class="form_container">
         {{ form.gender.label (class="block")}}
-        <br>
         {{form.gender(class="textbox col-md-8")}}
     </div>
     <div class="form_container">
         {{form.email.label (class="block")}}
-        <br>
         {{form.email (placeholder = "eg. example@example.com", class="textbox col-md-8")}}
     </div>
     <br>
     <div class="form_container">
          {{form.location.label (class="block")}}
-         <br>
          {{form.location (placeholder="eg. Kingston, Jamaica", class="textbox col-md-8")}}
     </div>
     <br>
     <div class="form_container">
           {{form.bibliography.label (class="block")}}
-          <br>
           {{form.bibliography(class="textbox col-md-8")}}
      </div>
      <br>
      <div class="form_container">
-         {{form.profilepic.label (class="block")}}
-         <br>
-         {{form.profilepic (class="textbox col-md-8")}}
+         {{form.profilepic.label(class="block")}}
+         {{form.profilepic(class="textbox col-md-8")}}
      </div>
      <br>
      <input type="submit" value="Add Profile" class="btn btn-success"/>
