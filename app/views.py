@@ -67,13 +67,31 @@ def profile():
 
 @app.route("/profiles")
 def profiles():
-    users = UserProfile.query.all()
+    user = UserProfile.query.all()
     profiles = []
     
     for user in UserProfile:
-        profiles.append({"pro_pic": user.photo, "f_name":user.firstname, "l_name": user.lastname, "gender": user.gender, "location":user.location, "id":user.id})
+        profiles.append({"pro_pic": user.photo, "firstname":user.firstname, "lastname": user.lastname, "gender": user.gender, "location":user.location, "id":user.id})
     
     return render_template("view-created-profile.html", profiles = profiles)
+    
+@app.route('/profile/<userid>')
+def inidi_profile(userid):
+    user = UserProfile.query.filter_by(id=userid).first()
+    
+    if user is None:
+        return redirect(url_for('home'))
+        
+    c_y = int(user.created_on.split("-")[0])
+    c_m = int(user.created_on.split("-")[1])
+    c_d = int(user.created_on.split("-")[2])
+    
+    user.created_on = format_date_joined(c_y, c_m, c_d)
+    
+    return render_template("profile.html", form=user)
+    
+def format_date_joined(yy,mm,dd):
+    return datetime.date(yy,mm,dd).strftime("%B, %d,%Y")
 
 def get_uploaded_images():
     uploads = []
