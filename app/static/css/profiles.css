@@ -1,0 +1,43 @@
+.card{
+    border-top: 3px #007bff solid;
+     margin: 0 auto;
+    padding-top: 30px;
+    border-radius: 20px;
+}
+
+
+
+.card{
+    width: 500px;
+    height: 500px;
+}
+
+.card-img-top{
+  width: 150px;
+  height: 150px;
+  margin-left: 20px;
+}
+
+
+.btn-container{
+    text-align: center;
+     padding-top: 15%;
+}
+
+.person{
+   width: 10%;
+  height: 10%;
+}
+
+.btn{
+    width: 45%;
+   
+}
+
+.card-title , .card-text{
+    margin-left: 30px;
+}
+
+.name{
+    font-weight: bold;
+}

@@ -57,6 +57,7 @@ def profile():
             
             except Exception as e:
                 db.session.rollback()
+                print(e)
                 flash("Internal Error", "danger")
                 return render_template("profile.html", form = newProfileForm)
         
@@ -67,13 +68,13 @@ def profile():
 
 @app.route("/profiles")
 def profiles():
-    user = UserProfile.query.all()
+    users = UserProfile.query.all()
     profiles = []
     
-    for user in UserProfile:
-        profiles.append({"pro_pic": user.photo, "firstname":user.firstname, "lastname": user.lastname, "gender": user.gender, "location":user.location, "id":user.id})
+    for user in users:
+        profiles.append({"pro_pic": user.photo, "firstname":user.first_name, "lastname": user.last_name, "gender": user.gender, "location":user.location, "created_on":user.created_on, "id":user.id})
     
-    return render_template("view-created-profile.html", profiles = profiles)
+    return render_template("list-of-profiles.html", profiles = profiles)
     
 @app.route('/profile/<userid>')
 def inidi_profile(userid):
@@ -88,7 +89,7 @@ def inidi_profile(userid):
     
     user.created_on = format_date_joined(c_y, c_m, c_d)
     
-    return render_template("profile.html", form=user)
+    return render_template("view-created-profile.html", user = user)
     
 def format_date_joined(yy,mm,dd):
     return datetime.date(yy,mm,dd).strftime("%B, %d,%Y")

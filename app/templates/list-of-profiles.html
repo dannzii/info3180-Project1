@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block main%}
+{% include "flash_message.html"%}
+
+ <h1 class="title">Profiles</h1>
+ <hr id="title_sep">
+
+<div class="profiles-container">
+    {% for profile in profiles %}
+    <div class="row border-style center profile">
+        <image src="{{ url_for('static', filename='Images/'+profile['pro_pic']) }}" class="pro_pic">
+        <div class="col pro-data">
+            <span class="name">{{ profile['firstname'] }}</span>
+            <span class="name">{{ profile['lastname'] }}</span>
+            <br>
+            <img class="person" src="{{ url_for('static', filename='icons/person.png')}}"/> <span class="blk">{{ profile['gender'] }}</span>
+            <br>
+            <img class="person" src="{{ url_for('static', filename='icons/locate.png')}}"/> <span class="blk">{{ profile['location'] }}</span>
+        </div>
+        <div class="view-profile center col">
+            <a class="view-btn btn-success" href="{{ url_for('inidi_profile', userid=profile['id']) }}">View profile</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock%}
+© 2019 GitHub, Inc.

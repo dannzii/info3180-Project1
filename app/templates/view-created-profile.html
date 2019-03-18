@@ -1,25 +1,30 @@
 {% extends "base.html" %}
 
-{% block main%}
-{% include "flash_messages.html"%}
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profiles.css') }}" type="text/css" />
+{% endblock %}
 
-<h1 class="title">Profiles</h1>
-<hr id="title_sep">
-
-<div class="profiles-container">
-    {% for profile in profiles %}
-    <div class="row border-style center profile">
-        <image src="{{ url_for('static', filename='Images/'+profile['pro_pic']) }}" class="pro_pic">
-        <div class="col pro-data">
-            <span class="">{{ profile['firstname'] }}</span>
-            <span class="">{{ profile['lastname'] }}</span>
-            <span class="blk">{{ profile['gender'] }}</span>
-            <span class="blk">{{ profile['location'] }}</span>
-        </div>
-        <div class="view-profile center col">
-            <a class="view-btn btn-success" href="{{ url_for('inidi_profile', userid=profile['id']) }}">View profile</a>
+{% block main %}
+<div class="card">
+    <div class="row top-info">
+        <img class="card-img-top pro_img" src="{{ url_for('static', filename='Images/'+user.photo) }}"/>
+        <div class="col">
+          <span class="name">{{user.first_name+" "+user.last_name}}</span>
+           <br>
+           <img class="person" src="{{ url_for('static', filename='icons/email.png')}}"/> <span class="blk">{{user.email}}</span>
+           <br>
+           <img class="person" src="{{ url_for('static', filename='icons/locate.png')}}"/> <span class="blk">{{user.location}}</span>
+           <br>
+           <img class="person" src="{{ url_for('static', filename='icons/date.png')}}"/> <span class="blk">Joined on {{user.created_on}}</span>
         </div>
     </div>
-    {% endfor %}
+<div class="card-body">
+        <h5 class"card-title">About me</h5>
+        <p calss="card-text">{{ user.bio }}</p>
+        <div class="btn-container">
+            <a href="#" class="center col-md-6 btn btn-success">Send messaage</a>
+            <a href="#" class="center col-md-6 btn btn-primary">Follow</a>
+        </div>
+    </div>
 </div>
-{% endblock%}
+{% endblock %}
